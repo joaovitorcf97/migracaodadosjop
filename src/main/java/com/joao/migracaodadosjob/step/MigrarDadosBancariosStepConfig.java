@@ -21,7 +21,7 @@ public class MigrarDadosBancariosStepConfig {
             ItemReader<DadosBancarios> arquivoDadosBacariosReader,
             ItemWriter<DadosBancarios> bancoDadosBacariosWriter) {
         return new StepBuilder("migrarDadosBancariosStep", jobRepository)
-                .<DadosBancarios, DadosBancarios>chunk(1, transactionManager)
+                .<DadosBancarios, DadosBancarios>chunk(10000, transactionManager)
                 .reader(arquivoDadosBacariosReader)
                 .writer(bancoDadosBacariosWriter)
                 .build();

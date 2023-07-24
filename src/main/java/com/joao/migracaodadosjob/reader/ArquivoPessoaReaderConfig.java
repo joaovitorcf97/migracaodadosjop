@@ -20,11 +20,10 @@ public class ArquivoPessoaReaderConfig {
     public FlatFileItemReader<Pessoa> arquivoPessoaReader() {
         return new FlatFileItemReaderBuilder<Pessoa>()
                 .name("arquivoPessoaReader")
-                .resource(new FileSystemResource("files/pessoa.csv"))
+                .resource(new FileSystemResource("files/pessoas.csv"))
                 .delimited()
                 .names("nome", "email", "dataNascimento", "idade", "id")
                 .addComment("--")
-                .targetType(Pessoa.class)
                 .fieldSetMapper(fieldSetMapper())
                 .build();
     }
@@ -38,7 +37,8 @@ public class ArquivoPessoaReaderConfig {
 
                 pessoa.setNome(fieldSet.readString("nome"));
                 pessoa.setEmail(fieldSet.readString("email"));
-                pessoa.setDataNascimento(new Date(fieldSet.readDate("dataNasmento", "yyyy-MM-dd HH:mm:ss").getTime()));
+                pessoa.setDataNascimento(
+                        new Date(fieldSet.readDate("dataNascimento", "yyyy-MM-dd HH:mm:ss").getTime()));
                 pessoa.setIdade(fieldSet.readInt("idade"));
                 pessoa.setId(fieldSet.readInt("id"));
 
